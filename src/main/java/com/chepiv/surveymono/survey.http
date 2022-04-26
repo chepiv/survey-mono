@@ -1,0 +1,19 @@
+GET http://localhost:8080/survey
+Accept: application/json
+
+###
+POST http://localhost:8080/survey
+Content-Type: application/json
+
+{
+  "title": "Which language, huh?",
+  "questions": [
+    {
+      "question": "Java or Python?",
+      "type": "checkbox",
+      "possibleAnswers": ["Java", "Python"]
+    }
+  ]
+}
+
+###

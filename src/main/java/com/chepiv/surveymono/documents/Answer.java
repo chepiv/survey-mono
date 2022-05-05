@@ -15,7 +15,7 @@ import java.util.List;
 
 @Document
 @Data
-public class SurveyAnswer {
+public class Answer {
 
     @Id
     private String id;

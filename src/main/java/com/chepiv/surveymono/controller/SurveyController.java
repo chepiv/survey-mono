@@ -39,4 +39,9 @@ public class SurveyController {
         return ResponseEntity.of(surveyService.getById(id));
     }
 
+    @GetMapping(path = "/{title}")
+    public ResponseEntity<Survey> getByTitle(@PathVariable String title) {
+        return ResponseEntity.of(surveyService.findByTitle(title));
+    }
+
 }

@@ -35,4 +35,8 @@ public class SurveyService {
         return surveyRepository.findById(id);
     }
 
+    public Optional<Survey> findByTitle(String title) {
+        return surveyRepository.findFirstByTitle(title);
+    }
+
 }

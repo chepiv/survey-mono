@@ -1,6 +1,6 @@
 package com.chepiv.surveymono.repository;
 
-import com.chepiv.surveymono.documents.SurveyAnswer;
+import com.chepiv.surveymono.documents.Answer;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**
@@ -8,5 +8,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  * Contact: chepurin.ivan@gmail.com
  * Github:chepiv
  */
-public interface SurveyAnswerRepository extends MongoRepository<SurveyAnswer, String> {
+public interface AnswerRepository extends MongoRepository<Answer, String> {
 }

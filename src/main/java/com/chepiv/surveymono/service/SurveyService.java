@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by chepiv on 26/04/2022.
@@ -28,6 +29,10 @@ public class SurveyService {
 
     public List<Survey> getAll() {
         return surveyRepository.findAll();
+    }
+
+    public Optional<Survey> getById(String id) {
+        return surveyRepository.findById(id);
     }
 
 }

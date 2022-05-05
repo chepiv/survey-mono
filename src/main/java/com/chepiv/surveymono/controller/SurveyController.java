@@ -3,6 +3,7 @@ package com.chepiv.surveymono.controller;
 import com.chepiv.surveymono.documents.Survey;
 import com.chepiv.surveymono.service.SurveyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,13 +25,18 @@ public class SurveyController {
     }
 
     @PostMapping
-    public Survey save(@RequestBody Survey survey) {
-        return surveyService.save(survey);
+    public ResponseEntity<Survey> save(@RequestBody Survey survey) {
+        return ResponseEntity.ok(surveyService.save(survey));
     }
 
     @GetMapping
-    public List<Survey> getAll() {
-        return surveyService.getAll();
+    public ResponseEntity<List<Survey>> getAll() {
+        return ResponseEntity.ok(surveyService.getAll());
+    }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Survey> getById(@PathVariable String id) {
+        return ResponseEntity.of(surveyService.getById(id));
     }
 
 }

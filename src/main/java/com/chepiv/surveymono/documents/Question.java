@@ -1,6 +1,7 @@
 package com.chepiv.surveymono.documents;
 
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 
 import java.util.List;
 
@@ -12,6 +13,8 @@ import java.util.List;
 
 @Data
 public class Question {
+    @Id
+    private String id;
     private String question;
     private String type;
     private List<String> possibleAnswers;

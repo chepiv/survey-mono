@@ -1,6 +1,7 @@
 package com.chepiv.surveymono.documents;
 
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 
 /**
  * Created by chepiv on 27/04/2022.
@@ -10,7 +11,8 @@ import lombok.Data;
 
 @Data
 public class AnswerEntry {
-
-    private String question;
+    @Id
+    private String id;
+    private Question question;
     private String answer;
 }

@@ -4,10 +4,7 @@ import com.chepiv.surveymono.documents.Answer;
 import com.chepiv.surveymono.service.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,7 +30,7 @@ public class AnswerController {
     }
 
     @PostMapping
-    public ResponseEntity<Answer> save(Answer answer) {
+    public ResponseEntity<Answer> save(@RequestBody Answer answer) {
         return ResponseEntity.ok(answerService.save(answer));
     }
 }

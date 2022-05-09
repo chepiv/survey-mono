@@ -31,6 +31,14 @@ public class AnswerService {
         return answerRepository.findAll();
     }
 
+    public List<Answer> findAllBySurveyTitle(String title) {
+        return answerRepository.findAllBySurveyTitle(title);
+    }
+
+    public List<Answer> findAllBySurveyId(String surveyId) {
+        return answerRepository.findAllBySurveyId(surveyId);
+    }
+
     public Optional<Answer> findById(String id) {
         return answerRepository.findById(id);
     }

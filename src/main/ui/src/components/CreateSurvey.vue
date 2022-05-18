@@ -19,8 +19,15 @@
               :rules="[{ required: true, message: 'Title is required' }]"
           />
         </van-cell-group>
-        <div style="margin: 16px;">
-          <van-button round block type="primary"  native-type="submit">
+
+
+
+        <div style="margin: 16px; padding-left: 50%">
+          <van-button @click="addQuestion" icon="plus" color="green" type="primary">Add Question</van-button>
+        </div>
+
+        <div style="margin: 16px; padding-left: 30% ; padding-right: 30%">
+          <van-button round block type="primary" native-type="submit">
             Submit
           </van-button>
         </div>
@@ -30,23 +37,33 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+
+import QuestionComp from "@/components/QuestionComp";
 
 export default {
   name: "CreateSurvey",
-  setup() {
-    const email = ref('');
-    const title = ref('');
-    const onSubmit = (values) => {
-      console.log('submit', values);
-    };
-
+  components: [QuestionComp],
+  data() {
     return {
-      email,
-      title,
-      onSubmit,
-    };
+      questions: [],
+      email: "",
+      title: "",
+    }
   },
+  methods: {
+    onSubmit(e) {
+      console.log(e)
+      e.preventDefault()
+      const surveyReq = {
+        email: this.email,
+        title: this.title,
+      }
+      console.log(surveyReq)
+    },
+    addQuestion() {
+
+    }
+  }
 }
 </script>
 

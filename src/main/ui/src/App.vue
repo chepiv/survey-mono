@@ -1,10 +1,34 @@
 <template>
   <nav>
-    <router-link to="/"></router-link>
-    <router-link to="/about"></router-link>
+
+    <n-tabs default-value="oasis" justify-content="space-evenly" type="line">
+
+        <router-link to="/" >
+          <n-tab-pane name="oasis" tab="Create Survey"/>
+        </router-link>
+      <router-link to="/survey/:id">
+        <n-tab-pane name="fill survey" tab="Fill Survey"/>
+      </router-link>
+
+      <router-link to="/answers/:id">
+      <n-tab-pane name="answers" tab="Answers"/>
+      </router-link>
+    </n-tabs>
+
+
+
   </nav>
   <router-view/>
 </template>
+
+<script>
+import {NTabs} from "naive-ui";
+import {NTabPane} from "naive-ui";
+
+export default {
+  components: {NTabs, NTabPane}
+};
+</script>
 
 <style>
 #app {

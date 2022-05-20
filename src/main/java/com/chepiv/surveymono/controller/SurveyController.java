@@ -14,7 +14,7 @@ import java.util.List;
  * Github:chepiv
  */
 @RestController
-@RequestMapping("/survey")
+@RequestMapping("api/survey")
 public class SurveyController {
 
     private final SurveyService surveyService;

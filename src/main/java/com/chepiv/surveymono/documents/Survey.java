@@ -19,6 +19,7 @@ public class Survey {
     @Id
     private String id;
     private String title;
+    private String email;
     private List<Question> questions;
     @DocumentReference
     private List<Answer> answers;

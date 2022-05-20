@@ -1,15 +1,19 @@
 <template>
   <van-cell-group>
-    <van-cell>
-      <van-field v-model="question.name" label="Question" placeholder="Question"/>
-    </van-cell>
+    <div v-for="(q, index) in questions" :key="index">
+      <label for="index">{{index+1}}. Question:</label>
+      <van-cell>
+        <van-field v-model="q.name" label="Question" placeholder="Question"/>
+      </van-cell>
 
-    <van-cell title="Question type">
-      <van-radio-group v-model="question.type">
-        <van-radio name="text">Text</van-radio>
-        <van-radio name="radio">Radio</van-radio>
-      </van-radio-group>
-    </van-cell>
+      <van-cell title="Question type">
+        <van-radio-group v-model="q.type">
+          <van-radio name="text">Text</van-radio>
+          <van-radio name="radio">Radio</van-radio>
+        </van-radio-group>
+      </van-cell>
+    </div>
+
 
     <!--    <div v-if="question.type === 'radio'">-->
     <!--      <h5>Options:</h5>-->
@@ -22,7 +26,10 @@
     <!--      </van-cell>-->
     <!--    </div>-->
 
-
+    <div style="margin: 16px; padding-left: 50%">
+      <van-button @click="addQuestion" icon="plus" color="green" type="primary">Add Question
+      </van-button>
+    </div>
   </van-cell-group>
 </template>
 
@@ -31,12 +38,23 @@ export default {
   name: "QuestionComp",
   data() {
     return {
-      question: {}
+      questions: []
     }
   },
+  methods: {
+    addQuestion() {
+      this.questions.push({
+        id: "",
+        name: "",
+        type: ""
+      })
+    }
+  }
 }
 </script>
 
 <style scoped>
-
+van-cell-group {
+  margin: 10%;
+}
 </style>

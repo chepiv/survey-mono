@@ -15,8 +15,8 @@ import java.util.List;
 public class Question {
     @Id
     private String id;
-    private String question;
+    private String name;
     private String type;
-    private List<String> possibleAnswers;
+    private List<Option> options;
 
 }

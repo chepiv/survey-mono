@@ -1,10 +1,8 @@
 <template>
   <div class="main">
-
-    <h1>The survey is {{ $route.params.id }}</h1>
     <div v-if="$route.params.id === ''">
 
-      <n-input-group >
+      <n-input-group>
         <n-input v-model:value="id" type="text" placeholder="Find Survey By ID"/>
         <n-button size="small" color="green" @click="findSurvey(id)">Find</n-button>
       </n-input-group>
@@ -16,9 +14,9 @@
         :model="answer"
         :rules="rules"
         size="medium"
+        class="form"
     >
-      <h1>Title: {{ this.survey.title }}</h1>
-      <h5>JSON: {{ this.survey }}</h5>
+      <h2>Title: {{ this.survey.title }}</h2>
 
       <n-form-item
           :span="12"
@@ -64,7 +62,7 @@
             path="survey"
             v-if="q.type === 'text'"
         >
-            <n-input v-model:value="q.answer" type="text" placeholder="Answer"/>
+          <n-input v-model:value="q.answer" type="text" placeholder="Answer"/>
         </n-form-item>
       </div>
 
@@ -141,6 +139,12 @@ export default {
       } else {
         alert("Answer Error!")
       }
+      this.id = ""
+      this.survey = {}
+      this.answer.name = ""
+      this.answer.lastName = ''
+      this.answer.email = ''
+      this.answer = {}
     },
     prepareAnswerEntry() {
       const entries = this.survey.questions.map(value => {
@@ -170,5 +174,9 @@ export default {
 .main {
   margin-right: 10%;
   margin-left: 10%;
+}
+
+.form {
+  text-align: left;
 }
 </style>

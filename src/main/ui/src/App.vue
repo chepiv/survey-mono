@@ -2,7 +2,8 @@
 <!--  <nav>-->
     <div class="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/survey">Survey</router-link>
+      <router-link to="/survey">Survey</router-link> |
+      <router-link to="/answer">Answers</router-link>
     </div>
     <router-view />
 <!--  </nav>-->

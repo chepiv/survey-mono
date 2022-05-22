@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AnswerSurvey from "@/components/AnswerSurvey";
+import AnswerList from "@/components/AnswerList";
 
 const routes = [
   {
@@ -12,6 +13,11 @@ const routes = [
     path: '/survey/:id?',
     name: 'survey',
     component: AnswerSurvey
+  },
+  {
+    path: '/answer',
+    name: 'answer',
+    component: AnswerList
   }
 ]
 

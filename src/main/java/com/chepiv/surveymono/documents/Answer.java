@@ -2,6 +2,7 @@ package com.chepiv.surveymono.documents;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
@@ -19,7 +20,7 @@ public class Answer {
 
     @Id
     private String id;
-    @DocumentReference
+    @DBRef
     private Survey survey;
     private String surveyId;
     private String name;

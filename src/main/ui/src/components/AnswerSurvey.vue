@@ -3,8 +3,11 @@
 
     <h1>The survey is {{ $route.params.id }}</h1>
     <div v-if="$route.params.id === ''">
-      <n-input v-model:value="id" type="text" placeholder="Find Survey By ID"/>
-      <n-button size="small" color="green" @click="findSurvey(id)">Find</n-button>
+
+      <n-input-group >
+        <n-input v-model:value="id" type="text" placeholder="Find Survey By ID"/>
+        <n-button size="small" color="green" @click="findSurvey(id)">Find</n-button>
+      </n-input-group>
     </div>
 
     <n-form
@@ -12,38 +15,77 @@
         :label-width="80"
         :model="answer"
         :rules="rules"
-        :size="medium"
+        size="medium"
     >
-      <h1>Title: {{ this.answer.title }}</h1>
-      <n-form-item label="Name" path="user.name">
-        <n-input v-model:value="answer.name" placeholder="Input Name"/>
+      <h1>Title: {{ this.survey.title }}</h1>
+      <h5>JSON: {{ this.survey }}</h5>
+
+      <n-form-item
+          :span="12"
+          :label="'Name:'"
+          path="answer"
+      >
+        <n-input v-model:value="answer.name" type="text" placeholder="Name"/>
       </n-form-item>
-      <n-form-item label="Age" path="user.age">
-        <n-input v-model:value="answer.age" placeholder="Input Age"/>
+      <n-form-item
+          :span="12"
+          :label="'Last Name:'"
+          path="answer"
+      >
+        <n-input v-model:value="answer.lastName" type="text" placeholder="LastName"/>
       </n-form-item>
-      <n-form-item label="Phone" path="phone">
-        <n-input v-model:value="answer.phone" placeholder="Phone Number"/>
+
+      <n-form-item
+          :span="12"
+          :label="'Email:'"
+          path="answer"
+      >
+        <n-input v-model:value="answer.email" type="text" placeholder="Email"/>
       </n-form-item>
-      <n-form-item>
-        <n-button @click="handleValidateClick">
-          Validate
+
+      <div v-for="(q,index) in survey.questions" v-bind:key="index">
+        <n-form-item
+            :span="12"
+            :label=q.name
+            path="survey"
+            v-if="q.type === 'radio'"
+        >
+          <n-radio-group v-model:value="q.answer" name="radiogroup2">
+            <n-radio v-for="(o, id) in q.options" v-bind:key="id"
+                     :value="o.text">
+              {{ o.text }}
+            </n-radio>
+          </n-radio-group>
+        </n-form-item>
+
+        <n-form-item
+            :span="12"
+            :label=q.name
+            path="survey"
+            v-if="q.type === 'text'"
+        >
+            <n-input v-model:value="q.answer" type="text" placeholder="Answer"/>
+        </n-form-item>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end">
+        <n-button round type="primary" @click="sendAnswer">
+          Send Answer
         </n-button>
-      </n-form-item>
+      </div>
     </n-form>
 
-    <pre>{{ JSON.stringify(formValue, null, 2) }}
-</pre>
   </div>
 
 
 </template>
 
 <script>
-import {NInput, NButton, NFormItem, NForm} from "naive-ui";
+import {NButton, NForm, NFormItem, NInput, NInputGroup, NRadio, NRadioGroup} from "naive-ui";
 
 export default {
   name: "AnswerSurvey",
-  components: {NInput, NButton, NForm, NFormItem},
+  components: {NInput, NButton, NForm, NFormItem, NInputGroup, NRadioGroup, NRadio},
   data() {
     return {
       id: "",
@@ -73,11 +115,54 @@ export default {
   methods: {
     async findSurvey(id) {
       const res = await fetch("/api/survey/" + id)
+      this.id = id
       if (res.status === 200) {
         this.survey = await res.json()
       }
+    },
+    async sendAnswer() {
+      const req = {
+        surveyId: this.id,
+        name: this.answer.name,
+        lastName: this.answer.lastName,
+        email: this.answer.email,
+        entries: this.prepareAnswerEntry()
+      }
+      console.log(req)
+      const res = await fetch("/api/answer", {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(req),
+      })
+      if (res.status === 200) {
+        alert("Answer Sent")
+      } else {
+        alert("Answer Error!")
+      }
+    },
+    prepareAnswerEntry() {
+      const entries = this.survey.questions.map(value => {
+        return {
+          question: {
+            name: value.name,
+            type: value.type,
+            options: value.options
+          },
+          answer: value.answer
+        }
+      })
+      console.log(entries)
+      return entries
     }
-  }
+  },
+  async created() {
+    if (this.$route.params.id !== '') {
+      await this.findSurvey(this.$route.params.id);
+    }
+  },
+
 }
 </script>
 

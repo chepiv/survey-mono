@@ -22,7 +22,8 @@ public class Answer {
     @DocumentReference
     private Survey survey;
     private String surveyId;
-    private String firstName;
+    private String name;
     private String lastName;
+    private String email;
     private List<AnswerEntry> entries;
 }

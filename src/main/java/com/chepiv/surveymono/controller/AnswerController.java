@@ -25,12 +25,16 @@ public class AnswerController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Answer>> getAll() {
-        return ResponseEntity.ok(answerService.findAll());
+    public ResponseEntity<List<Answer>> getAll(
+            @RequestParam(required = false, name = "surveyId")
+            String surveyId) {
+        return ResponseEntity.ok(answerService.findAll(surveyId));
     }
 
     @PostMapping
-    public ResponseEntity<Answer> save(@RequestBody Answer answer) {
+    public ResponseEntity<Answer> save(
+            @RequestBody
+            Answer answer) {
         return ResponseEntity.ok(answerService.save(answer));
     }
 }

@@ -4,6 +4,7 @@ import com.chepiv.surveymono.documents.Answer;
 import com.chepiv.surveymono.repository.AnswerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,15 +28,19 @@ public class AnswerService {
         return answerRepository.save(answer);
     }
 
-    public List<Answer> findAll() {
-        return answerRepository.findAll();
+    public List<Answer> findAll(String surveyId) {
+        if (surveyId != null && !surveyId.equals("")) {
+            return answerRepository.findAllBySurveyId(surveyId);
+        }else {
+            return answerRepository.findAll();
+        }
     }
 
     public List<Answer> findAllBySurveyTitle(String title) {
         return answerRepository.findAllBySurveyTitle(title);
     }
 
-    public List<Answer> findAllBySurveyId(String surveyId) {
+    private List<Answer> findAllBySurveyId(String surveyId) {
         return answerRepository.findAllBySurveyId(surveyId);
     }
 

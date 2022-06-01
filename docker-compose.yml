@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+
+  mongo-db:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    networks:
+      - survey-network
+
+  survey-mono:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1024M
+        reservations:
+          cpus: '1.0'
+          memory: 1024M
+    ports:
+      - "9090:9090"
+    volumes:
+      - "${HOME}/.m2:/root/.m2"
+    environment: # Pass environment variables to the service
+      SPRING_DATA_MONGODB_HOST: mongo-db
+      SPRING_DATA_MONGODB_PORT: 27017
+      SPRING_DATA_MONGODB_DATABASE: surveydb
+    depends_on:
+      - mongo-db
+    networks:
+      - survey-network
+
+
+
+networks:
+  survey-network:
